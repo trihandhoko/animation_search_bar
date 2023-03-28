@@ -17,8 +17,9 @@ class AnimationSearchBar extends StatelessWidget {
     this.backIconColor,
     this.closeIconColor,
     this.searchIconColor,
-    this.centerTitle,
-    this.centerTitleStyle,
+    this.pageTitlePosition,
+    this.pageTitle,
+    this.pageTitleStyle,
     this.searchFieldHeight,
     this.searchFieldDecoration,
     this.cursorColor,
@@ -45,11 +46,12 @@ class AnimationSearchBar extends StatelessWidget {
   final Color? closeIconColor;
   final Color? searchIconColor;
   final Color? cursorColor;
-  final String? centerTitle;
+  final String? pageTitlePosition;
+  final String? pageTitle;
   final String? hintText;
   final bool? isBackButtonVisible;
   final IconData? backIcon;
-  final TextStyle? centerTitleStyle;
+  final TextStyle? pageTitleStyle;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
   final Decoration? searchFieldDecoration;
@@ -64,7 +66,7 @@ class AnimationSearchBar extends StatelessWidget {
     final _hPadding = horizontalPadding != null ? horizontalPadding! * 2 : 0;
     final _searchBarWidth =
         searchBarWidth ?? MediaQuery.of(context).size.width - _hPadding;
-    final _isBackButtonVisible = isBackButtonVisible ?? true;
+    final _isBackButtonVisible = isBackButtonVisible ?? false;
     return ProviderScope(
       child: Consumer(builder: (context, ref, __) {
         final _isSearching = ref.watch(searchingProvider);
@@ -82,7 +84,7 @@ class AnimationSearchBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 /// back Button
-                _isBackButtonVisible
+                _isBackButtonVisible && pageTitlePosition != "center"
                     ? AnimatedOpacity(
                         opacity: _isSearching ? 0 : 1,
                         duration: _duration,
@@ -98,8 +100,8 @@ class AnimationSearchBar extends StatelessWidget {
                                     previousScreen: previousScreen))))
                     : AnimatedContainer(
                         curve: Curves.easeInOutCirc,
-                        width: _isSearching ? 0 : 35,
-                        height: _isSearching ? 0 : 35,
+                        width: _isSearching ? 0 : 0,
+                        height: _isSearching ? 0 : 0,
                         duration: _duration),
 
                 /// text
@@ -108,14 +110,16 @@ class AnimationSearchBar extends StatelessWidget {
                   duration: _duration,
                   child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
-                    width: _isSearching ? 0 : _searchBarWidth - 100,
+                    width: _isSearching ? 0 : _searchBarWidth - 80,
                     duration: _duration,
-                    alignment: Alignment.center,
+                    alignment: pageTitlePosition == 'center'
+                        ? Alignment.center
+                        : Alignment.centerLeft,
                     child: FittedBox(
                       child: Text(
-                        centerTitle ?? 'Title',
+                        pageTitle ?? 'Title',
                         textAlign: TextAlign.center,
-                        style: centerTitleStyle ??
+                        style: pageTitleStyle ??
                             const TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.black,

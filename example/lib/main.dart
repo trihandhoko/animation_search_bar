@@ -40,7 +40,8 @@ class _HomeState extends State<Home> {
               alignment: Alignment.center,
               child: AnimationSearchBar(
                   backIconColor: Colors.black,
-                  centerTitle: 'App Title',
+                  pageTitle: 'App Title',
+                  pageTitlePosition: 'left',
                   onChanged: (text) {
                     countries = _countries
                         .where(
