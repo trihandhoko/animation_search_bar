@@ -84,7 +84,7 @@ class AnimationSearchBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 /// back Button
-                _isBackButtonVisible && pageTitlePosition != "center"
+                _isBackButtonVisible //&& pageTitlePosition != "center"
                     ? AnimatedOpacity(
                         opacity: _isSearching ? 0 : 1,
                         duration: _duration,
@@ -116,15 +116,22 @@ class AnimationSearchBar extends StatelessWidget {
                         ? Alignment.center
                         : Alignment.centerLeft,
                     child: FittedBox(
-                      child: Text(
-                        pageTitle ?? 'Title',
-                        textAlign: TextAlign.center,
-                        style: pageTitleStyle ??
-                            const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            left: _isBackButtonVisible &&
+                                    pageTitlePosition != "center"
+                                ? 15
+                                : 0),
+                        child: Text(
+                          pageTitle ?? 'Title',
+                          textAlign: TextAlign.center,
+                          style: pageTitleStyle ??
+                              const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                        ),
                       ),
                     ),
                   ),

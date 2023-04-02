@@ -41,7 +41,8 @@ class _HomeState extends State<Home> {
               child: AnimationSearchBar(
                   backIconColor: Colors.black,
                   pageTitle: 'App Title',
-                  pageTitlePosition: 'left',
+                  isBackButtonVisible: true,
+                  pageTitlePosition: 'center',
                   onChanged: (text) {
                     countries = _countries
                         .where(
