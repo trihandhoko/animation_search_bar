@@ -26,7 +26,6 @@ class AnimationSearchBar extends StatelessWidget {
     this.textStyle,
     this.hintText,
     this.hintStyle,
-    this.onTextClear,
     required this.onChanged,
     required this.onSubmitted,
     required this.searchTextEditingController,
@@ -61,7 +60,6 @@ class AnimationSearchBar extends StatelessWidget {
   final TextEditingController searchTextEditingController;
   final Function(String) onChanged;
   final Function(String) onSubmitted;
-  final Function(String)? onTextClear;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +158,6 @@ class AnimationSearchBar extends StatelessWidget {
                         onPressed: () {
                           _searchNotifier.state = false;
                           searchTextEditingController.clear();
-                          onTextClear;
                         },
                       ),
                     ),
