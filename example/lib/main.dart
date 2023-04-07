@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
                   pageTitle: 'App Title',
                   isBackButtonVisible: true,
                   pageTitlePosition: 'center',
+                  onTextClear: (text) {},
                   onSubmitted: (text) {},
                   onChanged: (text) {
                     countries = _countries
