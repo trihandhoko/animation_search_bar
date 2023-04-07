@@ -27,6 +27,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.hintText,
     this.hintStyle,
     required this.onChanged,
+    required this.onSubmitted,
     required this.searchTextEditingController,
     this.horizontalPadding,
     this.verticalPadding,
@@ -58,6 +59,7 @@ class AnimationSearchBar extends StatelessWidget {
   late Duration? duration;
   final TextEditingController searchTextEditingController;
   final Function(String) onChanged;
+  final Function(String) onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -207,6 +209,7 @@ class AnimationSearchBar extends StatelessWidget {
                             borderSide: BorderSide.none),
                       ),
                       onChanged: onChanged,
+                      onSubmitted: onSubmitted,
                     ),
                   ),
                 ),
