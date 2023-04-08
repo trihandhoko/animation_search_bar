@@ -26,6 +26,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.textStyle,
     this.hintText,
     this.hintStyle,
+    this.showSearchButton,
     required this.onChanged,
     required this.onSubmitted,
     required this.searchTextEditingController,
@@ -51,6 +52,7 @@ class AnimationSearchBar extends StatelessWidget {
   final String? pageTitle;
   final String? hintText;
   final bool? isBackButtonVisible;
+  final bool? showSearchButton;
   final IconData? backIcon;
   final TextStyle? pageTitleStyle;
   final TextStyle? textStyle;
@@ -69,6 +71,7 @@ class AnimationSearchBar extends StatelessWidget {
     final _searchBarWidth =
         searchBarWidth ?? MediaQuery.of(context).size.width - _hPadding;
     final _isBackButtonVisible = isBackButtonVisible ?? false;
+    final _showSearchButton = showSearchButton ?? false;
     return ProviderScope(
       child: Consumer(builder: (context, ref, __) {
         final _isSearching = ref.watch(searchingProvider);
@@ -215,26 +218,28 @@ class AnimationSearchBar extends StatelessWidget {
                 ),
 
                 ///  search button
-                AnimatedOpacity(
-                  opacity: _isSearching ? 0 : 1,
-                  duration: _duration,
-                  child: AnimatedContainer(
-                    curve: Curves.easeInOutCirc,
-                    duration: _duration,
-                    width: _isSearching ? 0 : 35,
-                    height: _isSearching ? 0 : 35,
-                    child: FittedBox(
-                      child: KCustomButton(
-                          widget: Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Icon(Icons.search,
-                                  size: 35,
-                                  color: searchIconColor ??
-                                      Colors.black.withOpacity(.7))),
-                          onPressed: () => _searchNotifier.state = true),
-                    ),
-                  ),
-                )
+                _showSearchButton
+                    ? AnimatedOpacity(
+                        opacity: _isSearching ? 0 : 1,
+                        duration: _duration,
+                        child: AnimatedContainer(
+                          curve: Curves.easeInOutCirc,
+                          duration: _duration,
+                          width: _isSearching ? 0 : 35,
+                          height: _isSearching ? 0 : 35,
+                          child: FittedBox(
+                            child: KCustomButton(
+                                widget: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Icon(Icons.search,
+                                        size: 35,
+                                        color: searchIconColor ??
+                                            Colors.black.withOpacity(.7))),
+                                onPressed: () => _searchNotifier.state = true),
+                          ),
+                        ),
+                      )
+                    : Container()
               ],
             ),
           ),
