@@ -27,6 +27,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.hintText,
     this.hintStyle,
     this.showSearchButton,
+    this.showActionButton,
     required this.onChanged,
     required this.onSubmitted,
     required this.searchTextEditingController,
@@ -57,6 +58,7 @@ class AnimationSearchBar extends StatelessWidget {
   final String? hintText;
   final bool? isBackButtonVisible;
   final bool? showSearchButton;
+  final bool? showActionButton;
   final IconData? backIcon;
   final Widget? actionIcon;
   final TextStyle? pageTitleStyle;
@@ -78,6 +80,7 @@ class AnimationSearchBar extends StatelessWidget {
     final _searchBarWidth = searchBarWidth ?? MediaQuery.of(context).size.width - _hPadding;
     final _isBackButtonVisible = isBackButtonVisible ?? false;
     final _showSearchButton = showSearchButton ?? false;
+    final _showActionButton = showActionButton ?? false;
     return ProviderScope(
       child: Consumer(builder: (context, ref, __) {
         final _isSearching = ref.watch(searchingProvider);
@@ -213,7 +216,8 @@ class AnimationSearchBar extends StatelessWidget {
                       )
                     : Container(),
 
-                !_showSearchButton
+                ///  action button
+                !_showSearchButton && _showActionButton
                     ? AnimatedOpacity(
                         opacity: _isSearching ? 0 : 1,
                         duration: _duration,
