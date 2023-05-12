@@ -14,6 +14,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.searchBarHeight,
     this.previousScreen,
     this.backIconColor,
+    this.actionIconColor,
     this.closeIconColor,
     this.searchIconColor,
     this.pageTitlePosition,
@@ -31,9 +32,11 @@ class AnimationSearchBar extends StatelessWidget {
     required this.searchTextEditingController,
     this.horizontalPadding,
     this.onStateChange,
+    this.onActionButtonClick,
     this.verticalPadding,
     this.isBackButtonVisible,
     this.backIcon,
+    this.actionIcon,
     this.duration,
   }) : super(key: key);
 
@@ -45,6 +48,7 @@ class AnimationSearchBar extends StatelessWidget {
   final double? verticalPadding;
   final Widget? previousScreen;
   final Color? backIconColor;
+  final Color? actionIconColor;
   final Color? closeIconColor;
   final Color? searchIconColor;
   final Color? cursorColor;
@@ -54,6 +58,7 @@ class AnimationSearchBar extends StatelessWidget {
   final bool? isBackButtonVisible;
   final bool? showSearchButton;
   final IconData? backIcon;
+  final Widget? actionIcon;
   final TextStyle? pageTitleStyle;
   final TextStyle? textStyle;
   final TextStyle? hintStyle;
@@ -63,6 +68,7 @@ class AnimationSearchBar extends StatelessWidget {
   final Function(String) onChanged;
   final Function(String) onSubmitted;
   final Function(bool)? onStateChange;
+  final Function()? onActionButtonClick;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +94,19 @@ class AnimationSearchBar extends StatelessWidget {
               children: [
                 /// back Button
                 _isBackButtonVisible //&& pageTitlePosition != "center"
-                    ? AnimatedOpacity(opacity: _isSearching ? 0 : 1, duration: _duration, child: AnimatedContainer(curve: Curves.easeInOutCirc, width: _isSearching ? 0 : 35, height: _isSearching ? 0 : 35, duration: _duration, child: FittedBox(child: KBackButton(icon: backIcon, iconColor: backIconColor, previousScreen: previousScreen))))
+                    ? AnimatedOpacity(
+                        opacity: _isSearching ? 0 : 1,
+                        duration: _duration,
+                        child: AnimatedContainer(
+                          curve: Curves.easeInOutCirc,
+                          width: _isSearching ? 0 : 35,
+                          height: _isSearching ? 0 : 35,
+                          duration: _duration,
+                          child: FittedBox(
+                            child: KBackButton(icon: backIcon, iconColor: backIconColor, previousScreen: previousScreen),
+                          ),
+                        ),
+                      )
                     : AnimatedContainer(curve: Curves.easeInOutCirc, width: _isSearching ? 0 : 0, height: _isSearching ? 0 : 0, duration: _duration),
 
                 /// text
@@ -188,6 +206,27 @@ class AnimationSearchBar extends StatelessWidget {
                               onPressed: () {
                                 _searchNotifier.state = true;
                                 onStateChange!(true);
+                              },
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(),
+
+                !_showSearchButton
+                    ? AnimatedOpacity(
+                        opacity: _isSearching ? 0 : 1,
+                        duration: _duration,
+                        child: AnimatedContainer(
+                          curve: Curves.easeInOutCirc,
+                          duration: _duration,
+                          width: _isSearching ? 0 : 35,
+                          height: _isSearching ? 0 : 35,
+                          child: FittedBox(
+                            child: KCustomButton(
+                              widget: Padding(padding: const EdgeInsets.all(5), child: actionIcon),
+                              onPressed: () {
+                                onActionButtonClick!();
                               },
                             ),
                           ),

@@ -35,7 +35,15 @@ class _HomeState extends State<Home> {
                   pageTitle: 'App Title',
                   isBackButtonVisible: true,
                   pageTitlePosition: 'center',
-                  showSearchButton: true,
+                  showSearchButton: false,
+                  onActionButtonClick: () {
+                    print('okok');
+                  },
+                  actionIcon: const Icon(
+                    Icons.delete,
+                    color: Colors.black,
+                    size: 15,
+                  ),
                   onSubmitted: (text) {},
                   onStateChange: (isvisible) {
                     if (isvisible) {
