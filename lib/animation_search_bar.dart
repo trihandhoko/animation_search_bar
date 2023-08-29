@@ -42,6 +42,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.iconBackSize,
     this.iconCloseSize,
     this.iconSearchSize,
+    this.borderRadiusInput,
   }) : super(key: key);
 
   ///
@@ -77,6 +78,7 @@ class AnimationSearchBar extends StatelessWidget {
   final double? iconBackSize;
   final double? iconCloseSize;
   final double? iconSearchSize;
+  final double? borderRadiusInput;
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +92,8 @@ class AnimationSearchBar extends StatelessWidget {
     final _iconBackSize = iconBackSize ?? 25;
     final _iconCloseSize = iconCloseSize ?? 25;
     final _iconSearchSize = iconSearchSize ?? 35;
+    final _borderRadiusInput = borderRadiusInput ?? 15;
+
     return ProviderScope(
       child: Consumer(builder: (context, ref, __) {
         final _isSearching = ref.watch(searchingProvider);
@@ -182,7 +186,7 @@ class AnimationSearchBar extends StatelessWidget {
                     margin: EdgeInsets.only(left: _isSearching ? 5 : 0, right: _isSearching ? 10 : 0),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     alignment: Alignment.center,
-                    decoration: searchFieldDecoration ?? BoxDecoration(color: Colors.black.withOpacity(.05), border: Border.all(color: Colors.black.withOpacity(.2), width: .5), borderRadius: BorderRadius.circular(15)),
+                    decoration: searchFieldDecoration ?? BoxDecoration(color: Colors.black.withOpacity(.05), border: Border.all(color: Colors.black.withOpacity(.2), width: .5), borderRadius: BorderRadius.circular(_borderRadiusInput)),
                     child: TextField(
                       controller: searchTextEditingController,
                       cursorColor: cursorColor ?? Colors.lightBlue,
@@ -265,7 +269,20 @@ class KCustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(borderRadius: BorderRadius.circular(radius ?? 50), child: Material(color: Colors.transparent, borderRadius: BorderRadius.circular(radius ?? 50), child: InkWell(splashColor: Theme.of(context).primaryColor.withOpacity(.2), highlightColor: Theme.of(context).primaryColor.withOpacity(.05), child: Padding(padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0), child: widget), onTap: onPressed, onLongPress: onLongPress)));
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius ?? 50),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(radius ?? 50),
+        child: InkWell(
+          splashColor: Theme.of(context).primaryColor.withOpacity(.2),
+          highlightColor: Theme.of(context).primaryColor.withOpacity(.05),
+          child: Padding(padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0), child: widget),
+          onTap: onPressed,
+          onLongPress: onLongPress,
+        ),
+      ),
+    );
   }
 }
 
