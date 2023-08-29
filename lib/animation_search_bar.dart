@@ -43,6 +43,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.iconCloseSize,
     this.iconSearchSize,
     this.borderRadiusInput,
+    this.widthHeightIcon,
   }) : super(key: key);
 
   ///
@@ -79,6 +80,7 @@ class AnimationSearchBar extends StatelessWidget {
   final double? iconCloseSize;
   final double? iconSearchSize;
   final double? borderRadiusInput;
+  final double? widthHeightIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +95,7 @@ class AnimationSearchBar extends StatelessWidget {
     final _iconCloseSize = iconCloseSize ?? 25;
     final _iconSearchSize = iconSearchSize ?? 35;
     final _borderRadiusInput = borderRadiusInput ?? 15;
+    final _widthHeightIcon = widthHeightIcon ?? 35;
 
     return ProviderScope(
       child: Consumer(builder: (context, ref, __) {
@@ -115,8 +118,8 @@ class AnimationSearchBar extends StatelessWidget {
                         duration: _duration,
                         child: AnimatedContainer(
                           curve: Curves.easeInOutCirc,
-                          width: _isSearching ? 0 : _iconBackSize,
-                          height: _isSearching ? 0 : _iconBackSize,
+                          width: _isSearching ? 0 : _widthHeightIcon,
+                          height: _isSearching ? 0 : _widthHeightIcon,
                           duration: _duration,
                           child: FittedBox(
                             child: KBackButton(icon: backIcon, iconSize: _iconBackSize, iconColor: backIconColor, previousScreen: previousScreen),
@@ -158,8 +161,8 @@ class AnimationSearchBar extends StatelessWidget {
                   duration: _duration,
                   child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
-                    width: _isSearching ? _iconCloseSize : 0,
-                    height: _isSearching ? _iconCloseSize : 0,
+                    width: _isSearching ? _widthHeightIcon : 0,
+                    height: _isSearching ? _widthHeightIcon : 0,
                     duration: _duration,
                     child: FittedBox(
                       child: KCustomButton(
@@ -226,8 +229,8 @@ class AnimationSearchBar extends StatelessWidget {
                         child: AnimatedContainer(
                           curve: Curves.easeInOutCirc,
                           duration: _duration,
-                          width: _isSearching ? 0 : _iconSearchSize,
-                          height: _isSearching ? 0 : _iconSearchSize,
+                          width: _isSearching ? 0 : _widthHeightIcon,
+                          height: _isSearching ? 0 : _widthHeightIcon,
                           child: FittedBox(
                             child: KCustomButton(
                               widget: Padding(padding: const EdgeInsets.all(5), child: Icon(Icons.search, size: _iconSearchSize, color: searchIconColor ?? Colors.black.withOpacity(.7))),
