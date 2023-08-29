@@ -158,12 +158,19 @@ class AnimationSearchBar extends StatelessWidget {
                   duration: _duration,
                   child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
-                    width: _isSearching ? 35 : 0,
-                    height: _isSearching ? 35 : 0,
+                    width: _isSearching ? searchBarHeight : 0,
+                    height: _isSearching ? searchBarHeight : 0,
                     duration: _duration,
                     child: FittedBox(
                       child: KCustomButton(
-                        widget: Padding(padding: const EdgeInsets.all(3), child: Icon(Icons.close, size: _iconCloseSize, color: closeIconColor ?? Colors.black.withOpacity(.7))),
+                        widget: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: Icon(
+                            Icons.close,
+                            size: _iconCloseSize,
+                            color: closeIconColor ?? Colors.black.withOpacity(.7),
+                          ),
+                        ),
                         onPressed: () {
                           _searchNotifier.state = false;
                           onStateChange!(false);
@@ -186,7 +193,12 @@ class AnimationSearchBar extends StatelessWidget {
                     margin: EdgeInsets.only(left: _isSearching ? 5 : 0, right: _isSearching ? 10 : 0),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     alignment: Alignment.center,
-                    decoration: searchFieldDecoration ?? BoxDecoration(color: Colors.black.withOpacity(.05), border: Border.all(color: Colors.black.withOpacity(.2), width: .5), borderRadius: BorderRadius.circular(_borderRadiusInput)),
+                    decoration: searchFieldDecoration ??
+                        BoxDecoration(
+                          color: Colors.black.withOpacity(.05),
+                          border: Border.all(color: Colors.black.withOpacity(.2), width: .5),
+                          borderRadius: BorderRadius.circular(_borderRadiusInput),
+                        ),
                     child: TextField(
                       controller: searchTextEditingController,
                       cursorColor: cursorColor ?? Colors.lightBlue,
