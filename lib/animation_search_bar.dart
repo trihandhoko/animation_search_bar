@@ -113,16 +113,18 @@ class AnimationSearchBar extends StatelessWidget {
               children: [
                 /// back Button
                 _isBackButtonVisible //&& pageTitlePosition != "center"
-                    ? AnimatedOpacity(
-                        opacity: _isSearching ? 0 : 1,
-                        duration: _duration,
-                        child: AnimatedContainer(
-                          curve: Curves.easeInOutCirc,
-                          width: _isSearching ? 0 : _widthHeightIcon,
-                          height: _isSearching ? 0 : _widthHeightIcon,
+                    ? Flexible(
+                        child: AnimatedOpacity(
+                          opacity: _isSearching ? 0 : 1,
                           duration: _duration,
-                          child: FittedBox(
-                            child: KBackButton(icon: backIcon, iconSize: _iconBackSize, iconColor: backIconColor, previousScreen: previousScreen),
+                          child: AnimatedContainer(
+                            curve: Curves.easeInOutCirc,
+                            width: _isSearching ? 0 : _widthHeightIcon,
+                            height: _isSearching ? 0 : _widthHeightIcon,
+                            duration: _duration,
+                            child: FittedBox(
+                              child: KBackButton(icon: backIcon, iconSize: _iconBackSize, iconColor: backIconColor, previousScreen: previousScreen),
+                            ),
                           ),
                         ),
                       )
@@ -156,29 +158,31 @@ class AnimationSearchBar extends StatelessWidget {
                 ),
 
                 /// close search
-                AnimatedOpacity(
-                  opacity: _isSearching ? 1 : 0,
-                  duration: _duration,
-                  child: AnimatedContainer(
-                    curve: Curves.easeInOutCirc,
-                    width: _isSearching ? _widthHeightIcon : 0,
-                    height: _isSearching ? _widthHeightIcon : 0,
+                Flexible(
+                  child: AnimatedOpacity(
+                    opacity: _isSearching ? 1 : 0,
                     duration: _duration,
-                    child: FittedBox(
-                      child: KCustomButton(
-                        widget: Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: Icon(
-                            Icons.close_rounded,
-                            size: _iconCloseSize,
-                            color: closeIconColor ?? Colors.black.withOpacity(.7),
+                    child: AnimatedContainer(
+                      curve: Curves.easeInOutCirc,
+                      width: _isSearching ? _widthHeightIcon : 0,
+                      height: _isSearching ? _widthHeightIcon : 0,
+                      duration: _duration,
+                      child: FittedBox(
+                        child: KCustomButton(
+                          widget: Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Icon(
+                              Icons.close_rounded,
+                              size: _iconCloseSize,
+                              color: closeIconColor ?? Colors.black.withOpacity(.7),
+                            ),
                           ),
+                          onPressed: () {
+                            _searchNotifier.state = false;
+                            onStateChange!(false);
+                            searchTextEditingController.clear();
+                          },
                         ),
-                        onPressed: () {
-                          _searchNotifier.state = false;
-                          onStateChange!(false);
-                          searchTextEditingController.clear();
-                        },
                       ),
                     ),
                   ),
@@ -223,21 +227,23 @@ class AnimationSearchBar extends StatelessWidget {
 
                 ///  search button
                 _showSearchButton
-                    ? AnimatedOpacity(
-                        opacity: _isSearching ? 0 : 1,
-                        duration: _duration,
-                        child: AnimatedContainer(
-                          curve: Curves.easeInOutCirc,
+                    ? Flexible(
+                        child: AnimatedOpacity(
+                          opacity: _isSearching ? 0 : 1,
                           duration: _duration,
-                          width: _isSearching ? 0 : _widthHeightIcon,
-                          height: _isSearching ? 0 : _widthHeightIcon,
-                          child: FittedBox(
-                            child: KCustomButton(
-                              widget: Padding(padding: const EdgeInsets.all(5), child: Icon(Icons.search, size: _iconSearchSize, color: searchIconColor ?? Colors.black.withOpacity(.7))),
-                              onPressed: () {
-                                _searchNotifier.state = true;
-                                onStateChange!(true);
-                              },
+                          child: AnimatedContainer(
+                            curve: Curves.easeInOutCirc,
+                            duration: _duration,
+                            width: _isSearching ? 0 : searchBarHeight,
+                            height: _isSearching ? 0 : searchBarHeight,
+                            child: FittedBox(
+                              child: KCustomButton(
+                                widget: Padding(padding: const EdgeInsets.all(5), child: Icon(Icons.search, size: _iconSearchSize, color: searchIconColor ?? Colors.black.withOpacity(.7))),
+                                onPressed: () {
+                                  _searchNotifier.state = true;
+                                  onStateChange!(true);
+                                },
+                              ),
                             ),
                           ),
                         ),
