@@ -158,15 +158,15 @@ class AnimationSearchBar extends StatelessWidget {
                   duration: _duration,
                   child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
-                    width: _isSearching ? searchBarHeight : 0,
-                    height: _isSearching ? searchBarHeight : 0,
+                    width: _isSearching ? _searchFieldHeight : 0,
+                    height: _isSearching ? _searchFieldHeight : 0,
                     duration: _duration,
                     child: FittedBox(
                       child: KCustomButton(
                         widget: Padding(
                           padding: const EdgeInsets.all(3),
                           child: Icon(
-                            Icons.close,
+                            Icons.close_rounded,
                             size: _iconCloseSize,
                             color: closeIconColor ?? Colors.black.withOpacity(.7),
                           ),
@@ -226,8 +226,8 @@ class AnimationSearchBar extends StatelessWidget {
                         child: AnimatedContainer(
                           curve: Curves.easeInOutCirc,
                           duration: _duration,
-                          width: _isSearching ? 0 : 35,
-                          height: _isSearching ? 0 : 35,
+                          width: _isSearching ? 0 : _searchFieldHeight,
+                          height: _isSearching ? 0 : _searchFieldHeight,
                           child: FittedBox(
                             child: KCustomButton(
                               widget: Padding(padding: const EdgeInsets.all(5), child: Icon(Icons.search, size: _iconSearchSize, color: searchIconColor ?? Colors.black.withOpacity(.7))),

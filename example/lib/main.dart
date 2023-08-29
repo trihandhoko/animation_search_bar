@@ -35,7 +35,8 @@ class _HomeState extends State<Home> {
                   pageTitle: 'App Title',
                   isBackButtonVisible: true,
                   pageTitlePosition: 'center',
-                  showSearchButton: false,
+                  showSearchButton: true,
+                  // iconCloseSize: 20,
                   onActionButtonClick: () {
                     print('okok');
                   },
