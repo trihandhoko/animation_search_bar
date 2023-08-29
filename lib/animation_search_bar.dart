@@ -44,6 +44,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.iconSearchSize,
     this.borderRadiusInput,
     this.widthHeightIcon,
+    this.leftSpacingTextTitle,
   }) : super(key: key);
 
   ///
@@ -81,6 +82,7 @@ class AnimationSearchBar extends StatelessWidget {
   final double? iconSearchSize;
   final double? borderRadiusInput;
   final double? widthHeightIcon;
+  final double? leftSpacingTextTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +98,7 @@ class AnimationSearchBar extends StatelessWidget {
     final _iconSearchSize = iconSearchSize ?? 35;
     final _borderRadiusInput = borderRadiusInput ?? 15;
     final _widthHeightIcon = widthHeightIcon ?? 35;
+    final _leftSpacingTextTitle = leftSpacingTextTitle ?? 15;
 
     return ProviderScope(
       child: Consumer(builder: (context, ref, __) {
@@ -139,7 +142,7 @@ class AnimationSearchBar extends StatelessWidget {
                     alignment: pageTitlePosition == 'center' ? Alignment.center : Alignment.centerLeft,
                     child: FittedBox(
                       child: Container(
-                        margin: EdgeInsets.only(left: _isBackButtonVisible && pageTitlePosition != "center" ? 15 : 0),
+                        margin: EdgeInsets.only(left: _isBackButtonVisible && pageTitlePosition != "center" ? _leftSpacingTextTitle : 0),
                         child: Text(
                           pageTitle ?? 'Title',
                           textAlign: TextAlign.center,
