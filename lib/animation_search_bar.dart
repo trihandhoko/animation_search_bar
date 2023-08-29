@@ -134,7 +134,7 @@ class AnimationSearchBar extends StatelessWidget {
                   duration: _duration,
                   child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
-                    width: _isSearching ? 0 : _searchBarWidth - 80,
+                    width: _isSearching ? 0 : _searchBarWidth - (_widthHeightIcon * 2 + 15),
                     duration: _duration,
                     alignment: pageTitlePosition == 'center' ? Alignment.center : Alignment.centerLeft,
                     child: FittedBox(
@@ -191,7 +191,7 @@ class AnimationSearchBar extends StatelessWidget {
                   child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
                     duration: _duration,
-                    width: _isSearching ? _searchBarWidth - 55 - (horizontalPadding ?? 0 * 2) : 0,
+                    width: _isSearching ? _searchBarWidth - (_widthHeightIcon + 20) - (horizontalPadding ?? 0 * 2) : 0,
                     height: _isSearching ? _searchFieldHeight : 20,
                     margin: EdgeInsets.only(left: _isSearching ? 5 : 0, right: _isSearching ? 10 : 0),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
