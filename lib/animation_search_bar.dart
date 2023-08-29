@@ -39,6 +39,9 @@ class AnimationSearchBar extends StatelessWidget {
     this.backIcon,
     this.actionIcon,
     this.duration,
+    this.iconBackSize,
+    this.iconCloseSize,
+    this.iconSearchSize,
   }) : super(key: key);
 
   ///
@@ -71,6 +74,9 @@ class AnimationSearchBar extends StatelessWidget {
   final Function(String) onSubmitted;
   final Function(bool)? onStateChange;
   final Function()? onActionButtonClick;
+  final double? iconBackSize;
+  final double? iconCloseSize;
+  final double? iconSearchSize;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +87,9 @@ class AnimationSearchBar extends StatelessWidget {
     final _isBackButtonVisible = isBackButtonVisible ?? false;
     final _showSearchButton = showSearchButton ?? false;
     final _showActionButton = showActionButton ?? false;
+    final _iconBackSize = iconBackSize ?? 25;
+    final _iconCloseSize = iconCloseSize ?? 25;
+    final _iconSearchSize = iconSearchSize ?? 35;
     return ProviderScope(
       child: Consumer(builder: (context, ref, __) {
         final _isSearching = ref.watch(searchingProvider);
@@ -106,7 +115,7 @@ class AnimationSearchBar extends StatelessWidget {
                           height: _isSearching ? 0 : 35,
                           duration: _duration,
                           child: FittedBox(
-                            child: KBackButton(icon: backIcon, iconColor: backIconColor, previousScreen: previousScreen),
+                            child: KBackButton(icon: backIcon, iconSize: _iconBackSize, iconColor: backIconColor, previousScreen: previousScreen),
                           ),
                         ),
                       )
@@ -150,7 +159,7 @@ class AnimationSearchBar extends StatelessWidget {
                     duration: _duration,
                     child: FittedBox(
                       child: KCustomButton(
-                        widget: Padding(padding: const EdgeInsets.all(3), child: Icon(Icons.close, color: closeIconColor ?? Colors.black.withOpacity(.7))),
+                        widget: Padding(padding: const EdgeInsets.all(3), child: Icon(Icons.close, size: _iconCloseSize, color: closeIconColor ?? Colors.black.withOpacity(.7))),
                         onPressed: () {
                           _searchNotifier.state = false;
                           onStateChange!(false);
@@ -205,7 +214,7 @@ class AnimationSearchBar extends StatelessWidget {
                           height: _isSearching ? 0 : 35,
                           child: FittedBox(
                             child: KCustomButton(
-                              widget: Padding(padding: const EdgeInsets.all(5), child: Icon(Icons.search, size: 35, color: searchIconColor ?? Colors.black.withOpacity(.7))),
+                              widget: Padding(padding: const EdgeInsets.all(5), child: Icon(Icons.search, size: _iconSearchSize, color: searchIconColor ?? Colors.black.withOpacity(.7))),
                               onPressed: () {
                                 _searchNotifier.state = true;
                                 onStateChange!(true);
@@ -264,21 +273,36 @@ class KBackButton extends StatelessWidget {
   final Widget? previousScreen;
   final Color? iconColor;
   final IconData? icon;
-  const KBackButton({Key? key, required this.previousScreen, required this.iconColor, required this.icon}) : super(key: key);
+  final double? iconSize;
+  const KBackButton({Key? key, required this.previousScreen, required this.iconColor, required this.icon, this.iconSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
+      borderRadius: BorderRadius.circular(50),
+      child: Material(
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(50),
-        child: Material(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(50),
-            child: InkWell(
-                splashColor: Theme.of(context).primaryColor.withOpacity(.2),
-                highlightColor: Theme.of(context).primaryColor.withOpacity(.05),
-                onTap: () async {
-                  previousScreen == null ? Navigator.pop(context) : Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context) => previousScreen!));
-                },
-                child: Padding(padding: const EdgeInsets.all(3), child: SizedBox(width: 30, height: 30, child: Icon(icon ?? Icons.arrow_back_ios_new, color: iconColor ?? Colors.black.withOpacity(.7), size: 25))))));
+        child: InkWell(
+          splashColor: Theme.of(context).primaryColor.withOpacity(.2),
+          highlightColor: Theme.of(context).primaryColor.withOpacity(.05),
+          onTap: () async {
+            previousScreen == null ? Navigator.pop(context) : Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context) => previousScreen!));
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: SizedBox(
+              width: 30,
+              height: 30,
+              child: Icon(
+                icon ?? Icons.arrow_back_ios_new,
+                color: iconColor ?? Colors.black.withOpacity(.7),
+                size: iconSize ?? 25,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
